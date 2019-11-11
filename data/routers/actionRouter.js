@@ -25,7 +25,7 @@ const validateProjectID = async (req, res, next) => {
     const project_id = await Projects.get(req.params.id);
     console.log(project_id);
     if (project_id) {
-      req.project_id = project_id;
+      req.body.project_id = req.params.id;
       next();
     } else {
       next(new Error("Project does not exist"));
@@ -46,6 +46,7 @@ const validateProjectBody = async (req, res, next) => {
 };
 
 const validateActionBody = async (req, res, next) => {
+  console.log("req.body from validateActionBody ::: Action Router", req.body);
   !req.body
     ? res.status(400).json({ message: "No data received" })
     : !req.body.project_id
@@ -60,7 +61,7 @@ const validateActionBody = async (req, res, next) => {
 // Routes ————————————————————————————————————————————————
 
 // Operational
-router.get("/:id/actions", validateID, validateProjectID, async (req, res) => {
+router.get("/:id/actions", validateID, async (req, res) => {
   try {
     const projectActions = await Projects.getProjectActions(req.params.id);
     res
@@ -71,16 +72,16 @@ router.get("/:id/actions", validateID, validateProjectID, async (req, res) => {
   }
 });
 
-// Failed
+// Operational
 router.post(
   "/:id/actions",
-  validateID,
+  validateProjectID,
   validateActionBody,
   async (req, res) => {
     try {
       const newAction = await Actions.insert(req.body);
       res
-        .status(204)
+        .status(200)
         .json({ message: "Actions added successfully", newAction });
     } catch (error) {
       res.status(500).json({ error: "Couldn't add action" });
@@ -88,7 +89,7 @@ router.post(
   }
 );
 
-// Failed
+// Operational
 router.delete(
   "/:id/actions/:action_id",
   validateID,
@@ -106,7 +107,7 @@ router.delete(
 // Failed
 router.put(
   "/:id/actions/:action_id",
-  validateID,
+  validateProjectID,
   validateActionBody,
   async (req, res) => {
     try {

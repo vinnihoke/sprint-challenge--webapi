@@ -10,8 +10,8 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 server.use(morgan("dev"));
-server.use("/api/project", projectRouter);
-server.use("/api/project/:id/action", actionRouter);
+server.use("/api/project/", projectRouter);
+server.use("/api/actions/", actionRouter);
 
 server.get("/", (req, res) => {
   res.status(100).json({ message: "API Ready." });

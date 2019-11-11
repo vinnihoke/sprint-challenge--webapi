@@ -67,4 +67,15 @@ router.put("/:id", validateID, validateProjectBody, async (req, res) => {
   }
 });
 
+router.delete("/:id/actions/:action_id", validateID, validateProjectID, (req, res) => {
+	try {
+		const deleted = await Actions.remove(req.params.action_id);
+		res.status(200).json({ message: "Action successfully deleted", deleted });
+	} catch (error) {
+		res.status(500).json({ error: "Couldn't delete action" });
+	}
+})
+
+
+
 module.exports = router;

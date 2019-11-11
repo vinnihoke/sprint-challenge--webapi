@@ -38,3 +38,15 @@ export const validateProjectBody = async (req, res, next) => {
     ? res.status(400).json({ message: "Missing required description value" })
     : next();
 };
+
+export const validateActionBody = async (req, res, next) => {
+  !req.body
+    ? res.status(400).json({ message: "No data received" })
+    : !req.body.project_id
+    ? res.status(400).json({ message: "Missing required project_id value" })
+    : !req.body.description
+    ? res.status(400).json({ message: "Missing required description value" })
+    : !req.body.notes
+    ? res.status(400).json({ message: "Missing required notes value" })
+    : next();
+};

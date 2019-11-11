@@ -38,12 +38,32 @@ router.get("/:id/actions", validateID, validateProjectID, async (req, res) => {
 });
 
 // Needs Testing
-router.post("/", async (req, res) => {
+router.post("/", validateProjectBody, async (req, res) => {
   try {
     const project = await Projects.insert(req.body);
     res.status(204).json({ message: "Successfully added project", project });
   } catch (error) {
     res.status(500).json({ error: "Failed to add project" });
+  }
+});
+
+// Needs Testing
+router.delete("/:id", validateID, async (req, res) => {
+  try {
+    const deleted = await Projects.remove(req.params.id);
+    res.status(202).json({ message: "Project has been successfully removed" });
+  } catch (error) {
+    res.status(500).json({ error: "Couldn't delete project" });
+  }
+});
+
+// Needs Testing
+router.put("/:id", validateID, validateProjectBody, async (req, res) => {
+  try {
+    const update = await Projects.update(req.params.id, req.body);
+    res.status(200).json({ message: "Project successfully updated", update });
+  } catch (error) {
+    res.status(500).json({ error: "Couldn't update project" });
   }
 });
 

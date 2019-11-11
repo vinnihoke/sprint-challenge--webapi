@@ -23,6 +23,7 @@ const validateID = async (req, res, next) => {
 const validateProjectID = async (req, res, next) => {
   try {
     const project_id = await Projects.get(req.params.id);
+    console.log(project_id);
     if (project_id) {
       req.project_id = project_id;
       next();
@@ -57,6 +58,8 @@ const validateActionBody = async (req, res, next) => {
 };
 
 // Routes ————————————————————————————————————————————————
+
+// Operational
 router.get("/:id/actions", validateID, validateProjectID, async (req, res) => {
   try {
     const projectActions = await Projects.getProjectActions(req.params.id);
@@ -68,6 +71,7 @@ router.get("/:id/actions", validateID, validateProjectID, async (req, res) => {
   }
 });
 
+// Failed
 router.post(
   "/:id/actions",
   validateID,
@@ -84,6 +88,7 @@ router.post(
   }
 );
 
+// Failed
 router.delete(
   "/:id/actions/:action_id",
   validateID,
@@ -98,6 +103,7 @@ router.delete(
   }
 );
 
+// Failed
 router.put(
   "/:id/actions/:action_id",
   validateID,

@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+I learned that express is a framework that makes deploying an API much easier. I also learned that with express we can pretty easily create a full CRUD application.
+
 - [ ] Describe Middleware?
+
+First of all, everything is middleware. It allows us to add extra functionality to our requests or responses. My favorite analogy was the Tesla assembly line, where each piece of middleware acts as a robot adding something to, or checking, the request object.
 
 - [ ] Describe a Resource?
 
+A resource is what we're talking to when we use POST, PUT, DELETE, or GET requests. For instance we can remove a resource with DELETE, or edit a resource with a PUT request.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+We return status codes, or the resource itself in JSON format.
+
 - [ ] How can we partition our application into sub-applications?
+
+This I believe would be done with routing. We could setup our application to handle the partitions by sending the request to a different location to perform route specific operations.
 
 ## Project Setup
 

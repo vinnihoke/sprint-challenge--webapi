@@ -19,7 +19,7 @@ const validateID = async (req, res, next) => {
   }
 };
 
-// Possible Non-op
+// Operational
 const validateProjectID = async (req, res, next) => {
   try {
     const project_id = await Projects.get(req.params.id);
